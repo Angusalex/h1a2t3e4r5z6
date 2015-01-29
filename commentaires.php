@@ -52,7 +52,7 @@ $donnees = $req->fetch();
     <div class="block-forum" style="margin-top:20px;">
 	<img class="avatar_forum" src="avatars/<?php echo $donnees['avatar'];?>" />
 	<div style="margin-left:80px;margin-top:20px;">
-	<?php echo parseText(nl2br(htmlspecialchars($donnees['contenu']))); ?>
+	<?php echo nl2br(htmlspecialchars($donnees['contenu'])); ?>
 	</div><br />
 	<div class="date_com">Par <strong><?php echo $donnees['pseudo']; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?></div>
 	</div>
