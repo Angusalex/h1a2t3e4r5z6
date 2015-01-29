@@ -71,7 +71,7 @@ while ($donnees = $req->fetch())
 <div class="block-forum" style="margin-top:20px">
 <img class="avatar_forum" src="avatars/<?php echo $donnees['avatar'];?>" />
 <div style="margin-left:80px;margin-top:20px;">
-<?php echo parseText(nl2br(htmlspecialchars($donnees['commentaire']))); ?>
+<?php echo nl2br(htmlspecialchars($donnees['commentaire'])); ?>
 </div><br />
 <div class="date_com">Par <strong><?php echo htmlspecialchars($donnees['auteur']); ?></strong> Le <?php echo $donnees['date_commentaire_fr']; ?></div>
 </div>
@@ -103,34 +103,43 @@ for($i=1;$i<=$nbPage;$i++){
 if (isset($_SESSION['id']))
 {
 // on teste si le visiteur a soumis le formulaire
-if (isset($_POST['message']))
-{
+	if (isset($_POST['message']))
+	{
 // On vérifie que le formulaire n'a pas été soumis via une source externe
 /*if($_SERVER["HTTP_REFERER"] !== "http://www.site.com/index.php") {
     echo "Le formulaire est soumis depuis une source externe !";
 }*/
 
 // On vérifie que tous les champs ont été complétés
-if (empty($_POST["message"])) {
-    $erreur3= "Vous devez compléter tous les champs!";
-}
+		if (empty($_POST["message"]))
+		{
+	  $erreur3= "Vous devez compléter tous les champs!";
+		}
 
-if (is_ban($ip)) {
-    $erreur_ban='Vous êtes banni';
-	 }
+		if (is_ban($ip))
+		{
+	  $erreur_ban='Vous êtes banni';
+		}
 
-	else {
+		else
+		{
 
-		$req = $bdd->prepare('INSERT INTO commentaires VALUES("", "'.$donnees['id'].'", "'.mysql_real_escape_string($data->login).'", "'.mysql_real_escape_string($_POST['message']).'", "'.mysql_real_escape_string($data->avatar).'", NOW())');
-		$req->execute();
+		$req = $bdd->prepare('INSERT INTO commentaires(id_billet, auteur, commentaire, avatar, date_commentaire) VALUES(:id, :login, :message, :avatar, NOW())');
+		$req->execute(array(
+		'id' => $donnees['id'],
+		'login' => $_SESSION['login'],
+		'message' => $_POST['message'],
+		'avatar' => $data->avatar
+		));
 
 		$success = 'Message envoyer';
-	
+
 		header('Refresh: 2; URL= commentaires?billet='.$donnees['id'].'');
 
 		}
 	}
 ?>
+
 <form action="commentaires?billet=<?php echo $donnees['id']; ?>#ancre" method="post" class="sujets">
 <label for="message">Message:</label><textarea type="text" name="message" class="message_sujets" required></textarea><br /><br />
 <input class="submit" type="submit" name="post" value="Envoyer" />
@@ -170,7 +179,7 @@ if (is_ban($ip)) {
 		));
 
 		$success = 'Message envoyer';
-	
+
 		header('Refresh: 2; URL= commentaires?billet='.$donnees['id'].'');
 
 		}

@@ -7,7 +7,7 @@
 		<div class="profilco">
 		<?php if($data2['etat']=='0') { echo '<span>'.$nb_mp['nb_mp'].'</span>'; } ?>
 		<a href="messagerie"><img style="margin-right:10px;margin-top:-2px;vertical-align:middle;" src="images/message2.png"></a>
-		<span><?php echo '<a href="page-profil?id=' . $_SESSION['id'] . '"/>'.$data->login.'</a>' ?></span>
+		<span><?php echo '<a href="page-profil?id=' . $_SESSION['id'] . '"/>' . $_SESSION['login'] . '</a>' ;?></span>
 		<img id="avatar" src="avatars/<?php echo ''.$data->avatar.'' ?>" />
 
 		<div id="menufleche">
