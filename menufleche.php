@@ -1,5 +1,6 @@
+<script type="text/javascript" src="functions.js"></script>
+
 <?php
-	require ('connect2.php');
 		if (isset($_SESSION['login']))
 		{
 ?>
@@ -34,4 +35,3 @@
 		<a href="connexion" class="connecter">Se connecter</a></div>';
 		}
 		?>
-<script type="text/javascript" src="functions.js"></script>
