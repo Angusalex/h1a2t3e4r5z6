@@ -38,7 +38,7 @@ document.getElementById('to_hide').style.display = 'none';
 
     <body>
 	<?php include('header.php'); ?>
-	
+
 	<div class="contenu">
 	<?php
     // on prépare une requete SQL cherchant tous les titres, les dates ainsi que l'auteur des messages pour le membre connecté
@@ -119,12 +119,12 @@ document.getElementById('to_hide').style.display = 'none';
 	?>
 </div>
 	</div>
-	
+
 	<?php
 	$req->closeCursor();
 	?>
-	
+
 	<?php include('footer.php'); ?>
-	
+
 	</body>
 </html>

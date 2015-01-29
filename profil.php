@@ -20,7 +20,7 @@ function check_extension($ext,$ext_aut)
  }
  $valid = (!check_extension($ext,$ext_aut)) ? false : true;
  $erreur_avatar = (!check_extension($ext,$ext_aut)) ? 'Veuillez charger une image' : '';
- 
+
  if($valid)
  {
  $max_size = 2100000;
@@ -30,7 +30,7 @@ function check_extension($ext,$ext_aut)
  $erreur_avatar = 'Fichier trop gros';
  }
  }
- 
+
  if($valid)
  {
  if($avatar['error']>0)
@@ -43,9 +43,9 @@ $erreur_avatar = 'Erreur lors du transfert';
  {
  $path_to_image = 'avatars/';
  $path_to_min = 'avatars/';
- 
+
  $filename = $avatar_name;
- 
+
 $source = $avatar['tmp_name'];
 $target = $path_to_image.$_SESSION['id'].'.'.$filename;
 
@@ -90,7 +90,7 @@ $data = $req->fetch();
 }
 
 if (empty($data['login'])) {
-		
+
 if (!empty($_POST['new_login']))
 {
 if(preg_match('/^[a-zA-Z0-9-_]+$/', $_POST['new_login'])){

@@ -42,7 +42,7 @@ else{
 	$cPage = 1;
 }
 
-$req = $bdd->query('SELECT id, pseudo, titre, contenu, avatar, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%i\') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT '.(($cPage-1)*$perPage).','.$perPage.'');
+$req = $bdd->query('SELECT id, pseudo, titre, contenu, id_proprio, avatar, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%i\') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT '.(($cPage-1)*$perPage).','.$perPage.'');
 while ($donnees = $req->fetch())
 {
 ?>
@@ -57,8 +57,8 @@ while ($donnees = $req->fetch())
     echo nl2br(htmlspecialchars($donnees['titre']));
 	?>
 	<br />
-	<span class="date_com">Par <strong><?php echo $donnees['pseudo']; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
-	</span>
+	<p><span class="date_com">Par <strong><?php echo '<a href="index?id=' . $donnees['id_proprio'] . '">' . $donnees['pseudo'] . '</a>'; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
+	</span></p>
     <?php
 	$requete = $bdd->prepare('SELECT COUNT(*) AS nb_messages FROM commentaires WHERE id_billet= '.$donnees['id'].'');
 	$requete->execute();
