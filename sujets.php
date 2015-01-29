@@ -1,6 +1,7 @@
 <?php
 session_start();
 require ('connect.php');
+require ('connect2.php');
 require ('get_ip.php');
 $ip = get_ip();
 require ('is_ban.php');
@@ -50,7 +51,7 @@ while ($donnees = $req->fetch())
 <div class="news">
 
 	<a href="commentaires?billet=<?php echo $donnees['id']; ?>">
-	
+
     <div class="block-forum" style="margin-top:20px;padding:20px 10px 20px 10px;">
     <?php
     // On affiche le contenu du billet
@@ -59,7 +60,7 @@ while ($donnees = $req->fetch())
 	<br />
 	<span class="date_com">Par <strong><?php echo $donnees['pseudo']; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
 	</span>
-    <?php	
+    <?php
 	$requete = $bdd->prepare('SELECT COUNT(*) AS nb_messages FROM commentaires WHERE id_billet= '.$donnees['id'].'');
 	$requete->execute();
 	$donnees = $requete->fetch();
@@ -107,12 +108,18 @@ if (is_ban($ip)) {
 	 }
 
 	else {
-		
-		$req = $bdd->prepare('INSERT INTO billets VALUES("", "'.mysql_real_escape_string($data->login).'", "'.mysql_real_escape_string($_POST['titre']).'", "'.mysql_real_escape_string($_POST['message']).'", "'.mysql_real_escape_string($data->avatar).'", NOW())');
-		$req->execute();
+
+		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, id_proprio, date_creation) VALUES(:pseudo, :titre, :message, :avatar,  :id_proprio, NOW())');
+		$req->execute(array(
+		'pseudo' => $_SESSION['login'],
+		'titre' => $_POST['titre'],
+		'message' => $_POST['message'],
+		'avatar' => "avatar.png",
+		'id_proprio' => $_SESSION['id']
+		));
 
 		$success = 'Message envoyer';
-	
+
 		header('Refresh: 2; URL= sujets');
 
 		}
@@ -146,8 +153,8 @@ if (is_ban($ip)) {
 	 }
 
 	else {
-		
-		$req = $bdd->prepare('INSERT INTO billets VALUES(:id, :pseudo, :titre, :message, :avatar, NOW())');
+
+		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, id_proprio, date_creation) VALUES(:pseudo, :titre, :message, :avatar, NOW())');
 		$req->execute(array(
 		'id'=>"",
 		'pseudo' => $_POST['pseudo'],
@@ -157,7 +164,7 @@ if (is_ban($ip)) {
 		));
 
 		$success = 'Message envoyer';
-	
+
 		header('Refresh: 2; URL= sujets');
 
 		}
