@@ -9,10 +9,9 @@
     }
 ?>
 <?php
-	$sql = 'SELECT date, membre.login as expediteur, messages.id as id_message, id_expediteur, message, MIN(etat) AS etat FROM messages, membre WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur=membre.id GROUP BY id_expediteur ORDER BY date DESC';
+	$req = $bdd->query('SELECT date, membre.login as expediteur, messages.id as id_message, id_expediteur, message, MIN(etat) AS etat FROM messages, membre WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur=membre.id GROUP BY id_expediteur ORDER BY date DESC');
     // lancement de la requete SQL
-    $req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-	$data2 = mysql_fetch_array($req);
+	$data2 = $req->fetch();
 	$req_mp = $bdd->query('SELECT COUNT(*) AS nb_mp FROM messages WHERE id_destinataire="'.$_SESSION['id'].'" AND etat="0"');
 	$nb_mp = $req_mp->fetch();
 ?>
@@ -43,10 +42,8 @@ document.getElementById('to_hide').style.display = 'none';
 	<div class="contenu">
 	<?php
     // on prépare une requete SQL cherchant tous les titres, les dates ainsi que l'auteur des messages pour le membre connecté
-    $sql = 'SELECT DATE_FORMAT(MAX(date), \'%d/%m/%Y à %Hh%i\') AS date, membre.login as expediteur, messages.id as id_message, id_expediteur, MIN(etat) AS etat FROM messages, membre WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur=membre.id GROUP BY id_expediteur ORDER BY date DESC';
-    // lancement de la requete SQL
-    $req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-    $nb = mysql_num_rows($req);
+    $req = $bdd->query('SELECT DATE_FORMAT(MAX(date), \'%d/%m/%Y à %Hh%i\') AS date, membre.login as expediteur, messages.id as id_message, id_expediteur, MIN(etat) AS etat FROM messages, membre WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur=membre.id GROUP BY id_expediteur ORDER BY date DESC');
+    $nb = $req->rowCount();
     if ($nb == 0) {
     echo '<div style="margin-top:180px;text-align:center;">Vous n\'avez aucun message</div>';
     }
@@ -56,7 +53,7 @@ document.getElementById('to_hide').style.display = 'none';
 	<div class="news" style="margin-top:150px;">
 	<?php
     // si on a des messages, on affiche la date, un lien vers la page lire.php ainsi que le titre et l'auteur du message
-    while ($data = mysql_fetch_array($req))	{
+    while ($data = $req->fetch())	{
 	?>
 	<a href="lire?id_expediteur=<?php echo $data['id_expediteur']; ?>">
 	<div class="block-forum" style="padding:20px 10px 0px 10px;">
@@ -72,7 +69,7 @@ document.getElementById('to_hide').style.display = 'none';
 	echo '' , stripslashes(htmlentities(trim($data['expediteur']))) , '<span style="float:right;margin-right:18px;">'.$data['date'].'</span>', '<br /><br />';
 	?>
 	</div>
-	<a style="position:relative;top:-47px;left:795px;" href="supprimer?id_message=<?php echo $data['id_expediteur']; ?>"><img style="vertical-align:middle;margin-top:-3px;" src="images/delete.png" /></a>
+	<a style="position:relative;top:-47px;left:795px;" href="supprimer?id_message=<?php echo $data['id_expediteur']; ?>"><img style="vertical-align:middle;margin-top:8px;" src="images/delete.png" /></a>
 	</a>
 	<?php
 	}
@@ -87,15 +84,17 @@ document.getElementById('to_hide').style.display = 'none';
     }
 	else {
 	 // si tout a été bien rempli, on insère le message dans notre table SQL
-    $sql = 'INSERT INTO messages VALUES("", "'.$_SESSION['id'].'", "'.$_POST['destinataire'].'", NOW(), "'.mysql_real_escape_string($_POST['message']).'", 0)';
-    mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
+    $sql = $bdd->prepare('INSERT INTO messages VALUES("", :id_expediteur, :destinataire, NOW(), :message, 0)');
+	$sql->execute(array(
+		'id_expediteur' => $_SESSION['id'],
+		'destinataire' => $_POST['destinataire'],
+		'message' => htmlspecialchars($_POST['message'])
+		));
 	$success = '<span style="color:green;">Message envoyer</span>';
 	}
 	}
 	 // on prépare une requete SQL selectionnant tous les login des membres du site en prenant soin de ne pas selectionner notre propre login, le tout, servant à alimenter le menu déroulant spécifiant le destinataire du message
-    $sql = 'SELECT membre.login as nom_destinataire, membre.id as id_destinataire FROM membre WHERE id <> "'.$_SESSION['id'].'" ORDER BY login ASC';
-    // on lance notre requete SQL
-    $req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
+    $req = $bdd->query('SELECT membre.login as nom_destinataire, membre.id as id_destinataire FROM membre WHERE id <> "'.$_SESSION['id'].'" ORDER BY login ASC');
 	?>
 
 <form class="contact" action="messagerie#ancre" method="post">
@@ -104,7 +103,7 @@ document.getElementById('to_hide').style.display = 'none';
 	      <option id="to_hide"></option>
     <?php
     // on alimente le menu déroulant avec les login des différents membres du site
-    while ($data = mysql_fetch_array($req)) {
+    while ($data = $req->fetch()) {
     echo '<option value="' , $data['id_destinataire'] , '">' , stripslashes(htmlentities(trim($data['nom_destinataire']))) , '</option>';
     }
     ?>
@@ -122,8 +121,7 @@ document.getElementById('to_hide').style.display = 'none';
 	</div>
 	
 	<?php
-    mysql_free_result($req);
-    mysql_close();
+	$req->closeCursor();
 	?>
 	
 	<?php include('footer.php'); ?>

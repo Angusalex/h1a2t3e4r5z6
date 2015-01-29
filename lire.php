@@ -1,7 +1,6 @@
 <?php
 session_start();
 require ('connect.php');
-require ('connect2.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,28 +30,25 @@ require ('connect2.php');
     }
     else {
     // on prépare une requete SQL selectionnant la date, le titre et l'expediteur du message que l'on souhaite lire, tout en prenant soin de vérifier que le message appartient bien au membre connecté
-	$sql = 'SELECT DATE_FORMAT(date, \'%d/%m/%Y à %Hh%i\') AS date, message, id_expediteur, membre.login AS expediteur, messages.id as id_message, etat FROM messages, membre WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur=membre.id AND id_expediteur="'.$_GET['id_expediteur'].'" ORDER BY date';
-	// on lance cette requete SQL à MySQL
-    $req = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-	$req2 = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
-	$data2 = mysql_fetch_array($req2);
+	$req = $bdd->query('SELECT DATE_FORMAT(date, \'%d/%m/%Y à %Hh%i\') AS date, message, id_expediteur, membre.login AS expediteur, messages.id as id_message, etat FROM messages, membre WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur=membre.id AND id_expediteur="'.$_GET['id_expediteur'].'" ORDER BY date');
+	$data = $req->fetch();
 	?>
 	<div class="envoyer_mp"><a class="envoyer_mp" href="messagerie">Retour à la messagerie</a></div><br />
 	<?php
-    $nb = mysql_num_rows($req);
+    $nb = $req->rowCount();
     if ($nb == 0) {
     echo 'Aucun message reconnu.';
     }
     else {
 	// si on a des messages, on affiche la date, un lien vers la page lire.php ainsi que le titre et l'auteur du message
-    while ($data = mysql_fetch_array($req)) {
+    while ($data = $req->fetch()) {
 	?>
 	<div class="news">
 	<div class="block-forum" style="padding:20px 10px 0px 10px;">
 	<?php
-	mysql_query('UPDATE messages set etat="1" WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur="'.$data['id_expediteur'].'"');
+	$bdd->exec('UPDATE messages set etat="1" WHERE id_destinataire="'.$_SESSION['id'].'" AND id_expediteur="'.$data['id_expediteur'].'"');
 
-	echo '' , stripslashes(htmlentities(trim($data['expediteur']))) , ' <span style="float:right;">'.$data['date'].' <a href="supprimer?id_message='.$data['id_message'].'&id_expediteur='.$data['id_expediteur'].'"><img style="vertical-align:middle;margin-top:-3px;" src="images/delete.png" /></a></span><br />', stripslashes(trim(nl2br($data['message']))), '<br /><br />';
+	echo '' , htmlspecialchars($data['expediteur']) , ' <span style="float:right;">'.$data['date'].' <a href="supprimer?id_message='.$data['id_message'].'&id_expediteur='.$data['id_expediteur'].'"><img style="vertical-align:middle;margin-top:-3px;" src="images/delete.png" /></a></span><br />', stripslashes(trim(nl2br($data['message']))), '<br /><br />';
 	?>
 	</div>
 	</div>
@@ -67,8 +63,12 @@ require ('connect2.php');
     }
 	else {
 	 // si tout a été bien rempli, on insère le message dans notre table SQL
-    $sql = 'INSERT INTO messages VALUES("", "'.$_SESSION['id'].'", "'.$_POST['destinataire'].'", NOW(), "'.mysql_real_escape_string($_POST['message']).'", 0)';
-    mysql_query($sql) or die('Erreur SQL !'.$sql.'<br />'.mysql_error());
+   $sql = $bdd->prepare('INSERT INTO messages VALUES("", :id_expediteur, :destinataire, NOW(), :message, 0)');
+	$sql->execute(array(
+		'id_expediteur' => $_SESSION['id'],
+		'destinataire' => $_POST['destinataire'],
+		'message' => htmlspecialchars($_POST['message'])
+		));
 	$success = '<span style="color:green;">Message envoyer</span>';
 	}
 	}
@@ -90,8 +90,7 @@ require ('connect2.php');
 	</div>
 	
 	<?php
-	mysql_free_result($req);
-    mysql_close();
+	
 	?>
 	
 	<?php include('footer.php'); ?>
