@@ -7,4 +7,3 @@ function get_ip() {
                 $ip = $_SERVER['REMOTE_ADDR'];
         return $ip;
 }
-?>

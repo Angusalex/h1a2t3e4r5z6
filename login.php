@@ -23,13 +23,13 @@ $data=$req->fetch();
   else
   {
   $erreur = 'Pseudo ou mot de passe incorrect';
-  include('connexion'); // On inclut le formulaire d'identification
+  include('connexion.php'); // On inclut le formulaire d'identification
   exit;
   }
 
 }
 else
 {
-	include('connexion'); // On inclut le formulaire d'identification
+	include('connexion.php'); // On inclut le formulaire d'identification
 	exit;
 }

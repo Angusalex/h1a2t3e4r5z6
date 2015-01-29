@@ -1,7 +1,6 @@
 <?php
 session_start();
 require ('connect.php');
-require ('connect2.php');
 require ('get_ip.php');
 $ip = get_ip();
 require ('is_ban.php');

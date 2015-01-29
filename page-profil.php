@@ -1,7 +1,6 @@
 <?php
 session_start();
 require ('connect.php');
-require ('connect2.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">

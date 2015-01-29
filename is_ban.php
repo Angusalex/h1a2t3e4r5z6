@@ -7,10 +7,9 @@ function is_ban($ip) {
 	'ip' => $ip
      	));
      $nbr = $query->rowCount();
-     
+
      if ($nbr == 0)
           return (false);
      else
           return (true);
 }
-?>
