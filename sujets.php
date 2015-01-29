@@ -54,7 +54,7 @@ while ($donnees = $req->fetch())
     <div class="block-forum" style="margin-top:20px;padding:20px 10px 20px 10px;">
     <?php
     // On affiche le contenu du billet
-    echo parseText(nl2br(htmlspecialchars($donnees['titre'])));
+    echo nl2br(htmlspecialchars($donnees['titre']));
 	?>
 	<br />
 	<span class="date_com">Par <strong><?php echo $donnees['pseudo']; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require ('connect.php');
+require ('login_tchat.php');
 require ('get_ip.php');
 $ip = get_ip();
 require ('is_ban.php');
@@ -24,7 +25,7 @@ require ('is_ban.php');
 		<script src="chat.js"></script>
 		<title><?php if (isset($_SESSION['login'])) { if($data2['etat']=='0') { echo '('.$nb_mp['nb_mp'].')'; } } ?> Tchat</title>
 	</head>
-	
+
 <body>
 
 <?php include('header.php'); ?>
@@ -43,12 +44,12 @@ $query->execute(array(
 ));
 // On compte le nombre d'entrées
 $count=$query->rowCount();
-			
+
 // Si ce nombre est nul, alors on crée le compte, sinon on le connecte simplement
-if($count == 0) {			
+if($count == 0) {
 	// Création du compte
 	$insert = $bdd->prepare('
-		INSERT INTO chat_accounts (account_id, account_ip, account_login) 
+		INSERT INTO chat_accounts (account_id, account_ip, account_login)
 		VALUES(:id_tchat, :ip, :login_tchat)
 	');
 	$insert->execute(array(
@@ -56,7 +57,7 @@ if($count == 0) {
 		'ip' => $_SERVER["REMOTE_ADDR"],
 		'login_tchat' => htmlspecialchars($login),
 	));
-				
+
 	/* Création d'une session id ayant pour valeur le dernier ID créé
 	par la dernière requête SQL effectuée */
 	$_SESSION['id_tchat'] = $bdd->lastInsertId();
@@ -64,9 +65,9 @@ if($count == 0) {
 	$_SESSION['time'] = time();
 	$_SESSION['login_tchat'] = $login;
 } else {
-	$data = $query->fetch();	
-				
-				
+	$data = $query->fetch();
+
+
 		$_SESSION['id_tchat'] = $data['account_id'];
 		// On crée une session time qui prend la valeur de la date de connexion
 		$_SESSION['time'] = time();
@@ -89,7 +90,7 @@ if (is_ban($ip)) {
 	<form action="#" method="POST">
 	<span>Choisis un pseudo pour te connecter au chat!</span>
 	<br><br>
-				
+
 	<center>
 		<input type="text" name="login_tchat" id="pseudo_tchat" maxlength="16" placeholder="Pseudo" /><br /><br />
 		<input type="submit" class="submit" value="Connexion" />
@@ -104,7 +105,7 @@ if(!empty($_POST['login_tchat']) AND !preg_match("#^[-. ]+$#", $_POST['login_tch
 /* On crée la variable login qui prend la valeur POST envoyée
 car on va l'utiliser plusieurs fois */
 $login = $_POST['login_tchat'].' Invité';
-			
+
 // On crée une requête pour rechercher un compte ayant pour nom $login
 $query = $bdd->prepare("SELECT * FROM chat_accounts WHERE account_login = :login_tchat");
 $query->execute(array(
@@ -125,7 +126,7 @@ if($count == 0) {
 		'ip' => $_SERVER["REMOTE_ADDR"],
 		'login_tchat' => htmlspecialchars($login),
 	));
-				
+
 	/* Création d'une session id ayant pour valeur le dernier ID créé
 	par la dernière requête SQL effectuée */
 	$_SESSION['id_tchat'] = $bdd->lastInsertId();
@@ -133,16 +134,16 @@ if($count == 0) {
 	$_SESSION['time'] = time();
 	$_SESSION['login_tchat'] = $login;
 } else {
-	$data = $query->fetch();	
-				
-				
+	$data = $query->fetch();
+
+
 		$_SESSION['id_tchat'] = $data['account_id'];
 		// On crée une session time qui prend la valeur de la date de connexion
 		$_SESSION['time'] = time();
 		$_SESSION['login_tchat'] = $data['account_login'];
 
 }
-	
+
 // On termine la requête
 $query->closeCursor();
 header('Location: tchat');
@@ -153,12 +154,12 @@ if(!user_verified()) {
 $query = $bdd->prepare("SELECT * FROM chat_accounts WHERE account_login = :login_tchat");
 
 	$data = $query->fetch();
-				
+
 		$_SESSION['id_tchat'] = $data['account_id'];
 		// On crée une session time qui prend la valeur de la date de connexion
 		$_SESSION['time'] = time();
 		$_SESSION['login_tchat'] = $data['account_login'];
-	
+
 // On termine la requête
 $query->closeCursor();
 }
@@ -172,7 +173,7 @@ else {
 <?php
 ?>
 </div>
-  <!-- Statut //////////////////////////////////////////////////////// -->	
+  <!-- Statut //////////////////////////////////////////////////////// -->
 	<table class="status"><tr>
 		<td>
 		<?php
@@ -196,8 +197,8 @@ echo '<a href="./invite_change_pseudo"><input type="button" value="Changer de ps
 	</select>
 	</td>
 </tr></table>
-	
-	<table class="chat"><tr>		
+
+	<table class="chat"><tr>
 	<!-- zone des messages -->
 	<?php
 	if(isset($_SESSION['login'])) {
