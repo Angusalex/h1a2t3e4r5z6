@@ -1,0 +1,719 @@
+html, body
+{
+margin: 0;
+padding: 0;
+height: 100%;
+}
+
+body
+{
+background-color: #fafafa;
+font-family: "Open Sans",Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+*
+{
+box-sizing: border-box;
+}
+
+a
+{
+color: white;
+text-decoration: none;
+}
+
+p
+{
+margin: 0;
+}
+
+.erreur
+{
+text-align: center;
+}
+
+@font-face
+{
+font-family: 'Franklin Gothic Demi';
+src: url('polices/FRADM.ttf') format('truetype');
+}
+
+@font-face
+{
+font-family: 'LemonMilk';
+src: url('polices/LemonMilk.otf') format('opentype');
+}
+
+#conteneur_header
+{
+max-width: 1170px;
+margin-left: auto;
+margin-right: auto;
+}
+
+#contenu_index
+{
+margin: 0 auto;
+min-width: 800px;
+min-height: 500px;
+}
+
+.contenu
+{
+margin: 0 auto;
+max-width: 1170px;
+min-width: 800px;
+min-height: 600px;
+}
+
+.titre_contact
+{
+padding-top: 90px;
+font-size: 18px;
+color: #494949;
+text-align: center;
+}
+
+.text_contact
+{
+font-size: 16px;
+color: #494949;
+text-align: center;
+margin: 0;
+}
+
+.contact
+{
+text-align: center;
+margin-top: 80px;
+}
+
+header
+{
+background: #e42323 ;
+height: 65px;
+min-width: 850px;
+}
+
+#logo
+{
+display: inline-block;
+font-family: LemonMilk;
+font-size: 25pt;
+color: white;
+text-decoration: none;
+line-height: 62px;
+width: 150px;
+}
+
+#menu
+{
+text-align: center;
+padding: 0;
+margin: 0;
+margin-top: -67px;
+}
+
+#menu li
+{
+display: inline;
+list-style: none;
+}
+
+#menu a
+{
+display: inline-block;
+font-size: 15px;
+font-weight: bold;
+padding-right: 40px;
+}
+
+.profilco
+{
+float: right;
+margin-top: -73px;
+color: white;
+}
+
+
+.profildeco
+{
+position: relative;
+float: right;
+margin-top: -34px;
+}
+
+.inscription
+{
+text-align: center;
+margin-top: 80px;
+}
+
+.ou
+{
+color: white;
+padding: 0 7px 0 7px;
+}
+
+.inscrire
+{
+border: 2px solid white;
+border-radius: 4px;
+padding: 2px 10px 2px 10px;
+}
+
+.inscrire:hover
+{
+background: rgba(255,255,255,0.2);
+}
+
+.connecter
+{
+border: 2px solid white;
+border-radius: 4px;
+padding: 2px 10px 2px 10px;
+}
+
+.connecter:hover
+{
+background: rgba(255,255,255,0.2);
+}
+
+.connexion
+{
+text-align: center;
+margin-top: 150px;
+}
+
+#avatar
+{
+position: relative;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+top: 20px;
+}
+
+label
+{
+display: block;
+color: #494949;
+font-size: 15px;
+font-weight: bold;
+margin-bottom: 5px;
+}
+
+.input
+{
+width: 230px;
+border-radius: 4px;
+border: 1px solid #c8c8c8;
+padding: 10px 10px;
+}
+
+.submit
+{
+color: white;
+border: 1px solid #c8c8c8;
+padding: 10px 15px;
+cursor: pointer;
+background: grey;
+}
+
+.submit:hover
+{
+background: #989898;
+}
+
+#menufleche
+{
+	position: relative;
+	float: right;
+	top: 36px;
+	margin-left: 5px;
+}
+.menufleche, .sousmenu{
+	text-align:center;
+}
+.menufleche{
+	height:20px;
+	width:20px;
+	padding:2px 0;
+}
+.sousmenu{
+	height:45px;
+	width:150px;
+	padding:10px 0 5px 0;
+	background: #e42323;
+	color:#fff;
+	line-height: 30px;
+}
+
+#sousmenu1
+{
+position: absolute;
+margin: 20px -125px;
+z-index: 100;
+}
+
+.menufleche a{
+	display: inline-block;
+	width:20px;
+	height:20px;
+	background: url(images/down.png) no-repeat;
+}
+.sousmenu a{
+	display:block;
+	width:100%;
+	height:30px;
+	font-family:arial,sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	text-decoration:none;
+}
+.sousmenu a:hover, .sousmenu a:active, .sousmenu a:focus{
+	background:#ca0008;
+	height: 100%;
+}
+
+#avatar_profil
+{
+margin-top: 120px;
+margin-left: 25%;
+height: 400px;
+}
+
+#modif_profil
+{
+margin-top: -380px;
+margin-left: 60%;
+}
+
+#modif_profil input
+{
+margin: 10px 0 20px 0;
+}
+
+.input_profil
+{
+margin: 10px 0 10px 0;
+width: 160px;
+height: 30px;
+border-radius: 5px;
+border: 1px solid #c8c8c8;
+}
+
+.message
+{
+margin-top: 10px;
+width: 508px;
+height: 100px;
+border-radius: 5px;
+border: 1px solid #c8c8c8;
+}
+
+.nom, .email
+{
+width: 250px;
+height: 30px;
+border-radius: 5px;
+border: 1px solid #c8c8c8;
+}
+
+.text_actu
+{
+font-family: LemonMilk;
+text-align: center;
+font-size: 2.5em;
+color: white;
+padding-top: 25px;
+margin: 0 auto;
+clear: both;
+}
+
+#index_2
+{
+background: #e04343;
+width: 100%;
+height: 180px;
+border: 1px solid black;
+}
+
+.news h1, h3
+{
+text-align: center;
+}
+
+.news h3
+{
+font-size: 0.9em;
+margin-bottom: 0px;
+}
+
+.block-forum
+{
+background-color: white;
+margin-top: 10px;
+padding: 10px 10px 10px 10px;
+border:  1px solid #c8c8c8;
+}
+
+.news a .block-forum:hover
+{
+background-color: #f4f4f4;
+}
+
+.news
+{
+width: 70%;
+margin: auto;
+}
+
+.news a
+{
+color: black;
+}
+
+.sujets
+{
+margin-left: 15%;
+margin-top: 10px;
+}
+
+.nom_sujets, .email_sujets
+{
+width: 82%;
+height: 30px;
+border-radius: 5px;
+border: 1px solid #c8c8c8;
+}
+
+.message_sujets
+{
+font-family: inherit;
+font-size: 10pt;
+margin-top: 10px;
+width: 82%;
+height: 150px;
+border-radius: 5px;
+border: 1px solid #c8c8c8;
+}
+
+.reponse_forum
+{
+ float: right;
+ color: #cccccc;
+ margin: -5px 0 0 0;
+}
+
+.trait
+{
+border-bottom: 1px solid #c8c8c8;
+padding-bottom: 20px;
+}
+
+.avatar_forum
+{
+width: 60px;
+height: 60px;
+vertical-align: middle;
+margin: 0;
+float: left;
+}
+
+.pseudo_forum
+{
+font-size: 9pt;
+color: #2D2A29;
+font-weight: bold;
+}
+
+.lien_page_forum
+{
+margin-top: 15px;
+margin-left: 15%;
+}
+
+.lien_page_forum2
+{
+color: black;
+}
+
+.lien_page_forum2:hover
+{
+color: #989898;
+}
+
+.date_com
+{
+font-size: 0.8em;
+color: #cccccc;
+}
+
+.avatar_profil
+{
+width: 60px;
+height: 60px;
+}
+
+.img_tchat {
+	vertical-align: middle;
+}
+/* Conteneur principal des blocs de la page */
+#container {
+	width: 80%;
+	margin: auto;
+}
+
+/* Bloc contenant la zone de texte et bouton */
+.post_message  {
+	width: 95%;
+	margin: auto;
+	padding: 3px;
+}
+/* Zone de texte */
+.post_message #message {
+	width: 81%;
+	height: 40px;
+	border-radius: 4px;
+	border: 1px solid #c8c8c8;
+	padding: 0 0 0 10px;
+	font: inherit;
+}
+/* Bouton d'envoi */
+#post {
+	width: 18%;
+	border: 1px solid #c8c8c8;
+	padding: 10px 15px;
+	cursor: pointer;
+	color: white;
+	background: grey;
+}
+
+#post:hover {
+background: #989898;
+}
+
+#button_change_pseudo
+{
+	width: 160px;
+	border-radius: 4px;
+	border: 1px solid #c8c8c8;
+	padding: 5px 10px;
+	cursor: pointer;
+	background: #b8b8b8;
+	float: left;
+}
+
+#button_change_pseudo:hover {
+background: #989898;
+}
+
+/* La zone où sont affichés les messages
+et utilisateurs connectés */
+.chat {
+	width: 95%;
+	margin: 10px auto;
+	padding: 0px;
+}
+/* Bloc de chargement */
+.chat #loading {
+	margin-top: 50px;
+}
+/* Annonce */
+#annonce {
+	font-family: 'LemonMilk';
+	font-size: 1.5em;
+	text-align: center;
+	height:40px;
+	color: #494949;
+	margin-top: 35px;
+}
+/* Zone des messages */
+.chat #text-td {
+	margin: 0px; 
+	width: 80%;
+}
+/* Zone des utilisateurs connectés */
+.chat #users-td, .chat #users-chat-td {
+	margin: 0px;
+	padding: 5px;
+	width: 20%;
+	border: 1px solid #c8c8c8;
+}
+
+.chat #text{
+	height:400px;
+	overflow-y: auto;
+}
+
+/* Modification du statut */
+.status {
+	width: 95%;
+	border: none;
+	margin: auto;
+	text-align: right;
+}
+
+.unlog
+{
+text-align: center;
+margin-top: 50px;
+}
+
+#pseudo_tchat
+{
+	width: 40%;
+	height: 40px;
+	border-radius: 4px;
+	border: 1px solid #c8c8c8;
+	padding: 0 0 0 10px;
+	color: black;
+	font: inherit;
+}
+
+.lien_tchat
+{
+	color: #494949;
+}
+
+#text a
+{
+color: blue;
+text-decoration: none;
+}
+
+.info
+{
+color: green;
+}
+
+.user_online
+{
+position:relative;
+float:left;
+}
+
+.mp_titre
+{
+width:65%; 
+}
+
+.mp_expediteur
+{
+width:10%;
+}
+
+.mp_time
+{
+width:20%;
+}
+
+.mp
+{
+width: 70%;
+height: 600px;
+margin: auto;
+margin-top:160px;
+overflow: auto;
+}
+
+.mp a
+{
+color: black;
+}
+
+.champ_pour_mp
+{
+width: 250px;
+height: 30px;
+margin-left: 49px;
+border-radius: 5px;
+border: 1px solid #c8c8c8;
+}
+
+.champ_message_mp
+{
+width: 250px;
+height: 80px;
+vertical-align: middle;
+margin-left: 20px;
+margin-top: 20px;
+border-radius: 5px;
+border: 1px solid #c8c8c8;
+}
+
+
+.envoyer_mp
+{
+color: black;
+text-align: center;
+margin-top:100px;
+}
+
+.envoyer_mp:hover
+{
+color: grey;
+}
+
+.index_erreur_404
+{
+background: #e04343;
+width: 100%;
+height: 240px;
+border: 1px solid black;
+margin-top: 180px;
+line-height: 60px;
+text-align: center;
+}
+
+.text_erreur_404
+{
+font-family: LemonMilk;
+font-size: 2.5em;
+color: white;
+margin: 0 auto;
+clear: both;
+}
+
+.div_retour_erreur
+{
+text-align: center;
+
+}
+
+.retour_erreur
+{
+color: black;
+}
+
+.retour_erreur:hover
+{
+color: white;
+}
+
+footer
+{
+position: relative;
+width: 100%;
+bottom: 10px;
+margin-top: 60px;
+padding-left: 90px;
+padding-right: 90px;
+min-width: 800px;
+}
+
+#footer_left
+{
+float: left;
+color: grey;
+width: 14%;
+}
+
+#footer_right
+{
+float: right;
+text-align: right;
+color: grey;
+width: 34%;
+}
