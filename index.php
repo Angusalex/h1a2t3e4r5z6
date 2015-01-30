@@ -22,10 +22,7 @@ require ('connect.php');
 <body>
 
 <?php include('header.php'); ?>
-<?php
-if (!isset($_GET['id']))
-{
-?>
+
 
 <div id="contenu_index">
 
@@ -39,18 +36,7 @@ Liberte d'expression!
 </div>
 
 </div>
-<?php
-}
 
-else
-{
-?>
-<p><?php echo $_GET['id'] ;?> </p>
-<?php
-}
-
-
-?>
 
 <?php include('footer.php'); ?>
 

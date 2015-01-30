@@ -57,7 +57,7 @@ while ($donnees = $req->fetch())
     echo nl2br(htmlspecialchars($donnees['titre']));
 	?>
 	<br />
-	<p><span class="date_com">Par <strong><?php echo '<a href="index?id=' . $donnees['id_proprio'] . '">' . $donnees['pseudo'] . '</a>'; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
+	<p><span class="date_com">Par <strong><?php echo '<a href="profil-public?id=' . $donnees['id_proprio'] . '">' . $donnees['pseudo'] . '</a>'; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
 	</span></p>
     <?php
 	$requete = $bdd->prepare('SELECT COUNT(*) AS nb_messages FROM commentaires WHERE id_billet= '.$donnees['id'].'');
