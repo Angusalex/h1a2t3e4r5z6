@@ -153,9 +153,8 @@ if (is_ban($ip)) {
 
 	else {
 
-		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, id_proprio, date_creation) VALUES(:pseudo, :titre, :message, :avatar, NOW())');
+		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, date_creation) VALUES(:pseudo, :titre, :message, :avatar, NOW())');
 		$req->execute(array(
-		'id'=>"",
 		'pseudo' => $_POST['pseudo'],
 		'titre' => $_POST['titre'],
 		'message' => $_POST['message'],
