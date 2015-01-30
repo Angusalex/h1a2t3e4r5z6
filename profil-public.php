@@ -42,9 +42,32 @@ $ligne_info_user = $info_utilisateur->fetch();
 <img src="avatars/<?php echo $ligne_info_user['avatar'] ;?>"/>
 <h1><?php echo $ligne_info_user['login'] ; ?></h1>
 <p>Inscris depuis le <?php echo $ligne_info_user['date_compte'] ;?></p>
-</div>
 <?php
 $info_utilisateur->closeCursor();
+// bouton following proposé uniquement si l'utilisateur n'a pas déjà suivi le profil
+$verification_follow = $bdd->prepare('SELECT id_follow, id_follower FROM follows WHERE id_follow = :id_follow_page AND id_follower = :id_follower_connecte ');
+$verification_follow->execute(array(
+'id_follow_page' => $_GET['id'],
+'id_follower_connecte' => $_SESSION['id']
+));
+$verification_follow_ligne = $verification_follow->fetch();
+  //bouton follow
+  if (!$verification_follow_ligne)
+  {
+  ?>
+  <p><a style="color:red;border:solid red 2px;border-radius:5px;" href="following_systeme?id_compte_a_follow=<?php echo $_GET['id'] ;?>">Follow</a></p>
+  </div>
+  <?php
+  }
+  //bouton unfollow
+  else
+  {
+  ?>
+  <p><a style="color:red;border:solid red 2px;border-radius:5px;" href="unfollowing_systeme?id_compte_a_unfollow=<?php echo $_GET['id'] ;?>">Unfollow</a></p>
+  </div>
+  <?php
+  }
+$verification_follow->closeCursor();
 
 $publications_utilisateur = $bdd->prepare('SELECT pseudo, titre, contenu, DATE_FORMAT(date_creation, "%d/%m/%Y à %Hh%i") AS date_creation_fr FROM billets WHERE id_proprio = :id_user ORDER BY date_creation DESC');
 $publications_utilisateur->execute(array(
