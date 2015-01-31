@@ -43,7 +43,7 @@ else{
 	$cPage = 1;
 }
 // Récupération du billet
-$req = $bdd->prepare('SELECT id, pseudo, titre, contenu, avatar, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%i\') AS date_creation_fr FROM billets WHERE id = ?');
+$req = $bdd->prepare('SELECT id, pseudo, titre, contenu, id_proprio, avatar, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%i\') AS date_creation_fr FROM billets WHERE id = ?');
 $req->execute(array($_GET['billet']));
 $donnees = $req->fetch();
 ?>
@@ -54,7 +54,7 @@ $donnees = $req->fetch();
 	<div style="margin-left:80px;margin-top:20px;">
 	<?php echo nl2br(htmlspecialchars($donnees['contenu'])); ?>
 	</div><br />
-	<div class="date_com">Par <strong><?php echo $donnees['pseudo']; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?></div>
+	<div class="date_com">Par <strong><?php echo '<a class="pseudo_sujets" href="profil-public?id=' . $donnees['id_proprio'] . '">' . htmlspecialchars($donnees['pseudo']) . '</a>'; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?></div>
 	</div>
 	<div class="trait"></div>
 <?php
