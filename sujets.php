@@ -49,25 +49,21 @@ while ($donnees = $req->fetch())
 
 <div class="news">
 
-	<a href="commentaires?billet=<?php echo $donnees['id']; ?>">
-
     <div class="block-forum" style="margin-top:20px;padding:20px 10px 20px 10px;">
     <?php
     // On affiche le contenu du billet
-    echo nl2br(htmlspecialchars($donnees['titre']));
+    echo '<a class="titre_sujets" href="commentaires?billet='.$donnees['id'].'">'.nl2br(htmlspecialchars($donnees['titre'])).'</a>';
 	?>
 	<br />
-	<p><span class="date_com">Par <strong><?php echo '<a href="profil-public?id=' . $donnees['id_proprio'] . '">' . $donnees['pseudo'] . '</a>'; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
+	<p><span class="date_com">Par <strong><?php echo '<a class="pseudo_sujets" href="profil-public?id=' . $donnees['id_proprio'] . '">' . htmlspecialchars($donnees['pseudo']) . '</a>'; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
 	</span></p>
     <?php
 	$requete = $bdd->prepare('SELECT COUNT(*) AS nb_messages FROM commentaires WHERE id_billet= '.$donnees['id'].'');
 	$requete->execute();
 	$donnees = $requete->fetch();
 	?>
-    <br />
 	<em class="reponse_forum">Réponses: <?php echo $donnees['nb_messages']; ?></em>
     </div>
-	</a>
 </div>
 
 <?php

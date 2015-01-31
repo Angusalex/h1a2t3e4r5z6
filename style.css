@@ -412,6 +412,22 @@ border-bottom: 1px solid #c8c8c8;
 padding-bottom: 20px;
 }
 
+.titre_sujets:hover
+{
+color: grey;
+}
+
+.block-forum .pseudo_sujets
+{
+padding: 0;
+color: #CCC;
+}
+
+.pseudo_sujets:hover
+{
+color: grey;
+}
+
 .avatar_forum
 {
 width: 60px;
