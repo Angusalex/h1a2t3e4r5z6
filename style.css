@@ -7,7 +7,7 @@ height: 100%;
 
 body
 {
-background-color: #fafafa;
+background-color: #f4f4f4;
 font-family: "Open Sans",Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 
@@ -356,11 +356,6 @@ background-color: white;
 margin-top: 10px;
 padding: 10px 10px 10px 10px;
 border:  1px solid #c8c8c8;
-}
-
-.news a .block-forum:hover
-{
-background-color: #f4f4f4;
 }
 
 .news

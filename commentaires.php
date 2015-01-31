@@ -43,7 +43,7 @@ else{
 	$cPage = 1;
 }
 // Récupération du billet
-$req = $bdd->prepare('SELECT id, pseudo, titre, contenu, id_proprio, avatar, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%i\') AS date_creation_fr FROM billets WHERE id = ?');
+$req = $bdd->prepare('SELECT id, pseudo, titre, contenu, avatar, id_proprio, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%i\') AS date_creation_fr FROM billets WHERE id = ?');
 $req->execute(array($_GET['billet']));
 $donnees = $req->fetch();
 ?>
