@@ -9,7 +9,7 @@
   margin-left: 10px;
 }
 
-.info-utilisateur-public img{
+.info-utilisateur-public .avatar-public{
   float:left;
 }
 
@@ -40,4 +40,14 @@
 
 .news-profil{
   margin-top:100px;
+}
+
+.follow-du-profil img{
+  width:50px;
+
+}
+
+.followers-du-profil img{
+  width:50px;
+
 }

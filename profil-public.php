@@ -40,10 +40,56 @@ $ligne_info_user = $info_utilisateur->fetch();
 //Affichage des info de l'utilisateur
 ?>
 <div class="info-utilisateur-public">
-<img src="avatars/<?php echo $ligne_info_user['avatar'] ;?>"/>
-<h1><?php echo $ligne_info_user['login'] ; ?></h1>
-<p>Inscris depuis le <?php echo $ligne_info_user['date_compte'] ;?></p>
+  <img class="avatar-public" src="avatars/<?php echo $ligne_info_user['avatar'] ;?>"/>
+  <h1><?php echo $ligne_info_user['login'] ; ?></h1>
+  <p>Inscris depuis le <?php echo $ligne_info_user['date_compte'] ;?></p>
 </div>
+  <div>
+    <div class="follow-du-profil">
+      <h2 style="display:block;">Follows</h2>
+      <?php
+      $follows = $bdd->prepare('SELECT m.id id_follow, m.login nom_follow, m.avatar avatar_follow
+      FROM membre m
+      INNER JOIN follows f
+      ON m.id = f.id_follow
+      WHERE f.id_follower = :id
+      ORDER BY m.login');
+      $follows->execute(array(
+        "id" => $_GET['id']
+      ));
+      while($follow=$follows->fetch())
+      {
+        ?>
+        <img src="avatars/<?php echo $follow['avatar_follow']; ?>"/>
+        <a style="color:#000" href="page-profil?id=<?php echo $follow['id_follow'] ;?>"><?php echo $follow['nom_follow'] ;?></a>
+        <?php
+      }
+      $follows->closeCursor();
+      ?>
+    </div>
+    <div class="followers-du-profil">
+      <h2 style="display:block;">Followers</h2>
+      <?php
+      $followers = $bdd->prepare('SELECT m.id id_follower, m.login nom_follower, m.avatar avatar_follower
+      FROM membre m
+      INNER JOIN follows f
+      ON m.id = f.id_follower
+      WHERE f.id_follow = :id
+      ORDER BY m.login');
+      $followers->execute(array(
+        "id" => $_GET['id']
+      ));
+      while($follower=$followers->fetch())
+      {
+        ?>
+        <img src="avatars/<?php echo $follower['avatar_follower']; ?>"/>
+        <a style="color:#000" href="page-profil?id=<?php echo $follower['id_follower'] ;?>"><?php echo $follower['nom_follower'] ;?></a>
+        <?php
+      }
+      $followers->closeCursor();
+      ?>
+    </div>
+  </div>
 <?php
 $info_utilisateur->closeCursor();
 // bouton following proposé uniquement si l'utilisateur n'a pas déjà suivi le profil
