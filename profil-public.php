@@ -61,7 +61,7 @@ $ligne_info_user = $info_utilisateur->fetch();
       {
         ?>
         <img src="avatars/<?php echo $follow['avatar_follow']; ?>"/>
-        <a style="color:#000" href="page-profil?id=<?php echo $follow['id_follow'] ;?>"><?php echo $follow['nom_follow'] ;?></a>
+        <a style="color:#000" href="profil-public?id=<?php echo $follow['id_follow'] ;?>"><?php echo $follow['nom_follow'] ;?></a>
         <?php
       }
       $follows->closeCursor();
@@ -83,7 +83,7 @@ $ligne_info_user = $info_utilisateur->fetch();
       {
         ?>
         <img src="avatars/<?php echo $follower['avatar_follower']; ?>"/>
-        <a style="color:#000" href="page-profil?id=<?php echo $follower['id_follower'] ;?>"><?php echo $follower['nom_follower'] ;?></a>
+        <a style="color:#000" href="profil-public?id=<?php echo $follower['id_follower'] ;?>"><?php echo $follower['nom_follower'] ;?></a>
         <?php
       }
       $followers->closeCursor();
