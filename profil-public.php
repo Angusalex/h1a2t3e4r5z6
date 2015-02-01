@@ -84,18 +84,25 @@ $publications_utilisateur->execute(array(
   'id_user' => $_GET['id']
 ));
   //affichage des publication de l'utilisateur
+  ?>
+  <div class="news-profil">
+  <?php
+
   while($publication = $publications_utilisateur->fetch())
   {
   ?>
-  <div class="news">
-    <div class="block-forum" style="margin-top:20px;padding:20px 10px 20px 10px;">
-      <p><a class="titre_sujets" href="commentaires?billet=<?php echo $publication['id']; ?>"><?php echo nl2br(htmlspecialchars($publication['titre'])); ?></a></p>
-      <p>le <?php echo $publication['date_creation_fr'] ?></p>
+    <div class="news">
+      <div class="block-forum" style="margin-top:20px;padding:20px 10px 20px 10px;">
+        <p><a class="titre_sujets" href="commentaires?billet=<?php echo $publication['id']; ?>"><?php echo nl2br(htmlspecialchars($publication['titre'])); ?></a></p>
+        <p>le <?php echo $publication['date_creation_fr'] ?></p>
+      </div>
     </div>
-  </div>
   <?php
   }
 $publications_utilisateur->closeCursor();
+  ?>
+  </div>
+  <?php
 
 }
 //cas ou l'utilisateur a été redirigé à partir d'une publication d'un utilisateur sans compte
