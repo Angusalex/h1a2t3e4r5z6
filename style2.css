@@ -1,0 +1,39 @@
+.info-utilisateur-public{
+  width:600px;
+  margin-left:20px;
+  margin-top:20px;
+}
+
+.info-utilisateur-public p,h1{
+  display:inline;
+  margin-left: 10px;
+}
+
+.info-utilisateur-public img{
+  float:left;
+}
+
+.zone-bouton-follow a:hover{
+  color:#fff;
+  border:solid #fff 2px;
+  border-radius:5px;
+  padding:5px;
+  font-weight:bold;
+  background:#e42323;
+}
+
+.zone-bouton-follow a{
+  color:#e42323;
+  border:solid #e42323 2px;
+  border-radius:5px;
+  padding:5px;
+  font-weight:bold;
+  background:#fff;
+}
+
+.zone-bouton-follow{
+  margin-top:15px;
+  margin-left:180px;
+  width:300px;
+  padding:20px;
+}
