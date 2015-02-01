@@ -4,6 +4,7 @@ require ('connect.php');
 require ('get_ip.php');
 $ip = get_ip();
 require ('is_ban.php');
+require('ajout_sujet.php');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -84,45 +85,9 @@ for($i=1;$i<=$nbPage;$i++){
 ?>
 </div>
 <?php
+//Si l'utilisateur est connécté
 if (isset($_SESSION['id']))
 {
-// on teste si le visiteur a soumis le formulaire
-	if (isset($_POST['titre']) AND $_POST['message'])
-	{
-	// On vérifie que le formulaire n'a pas été soumis via une source externe
-	/*if($_SERVER["HTTP_REFERER"] !== "http://www.site.com/index.php") {
-	    echo "Le formulaire est soumis depuis une source externe !";
-	}*/
-
-		// On vérifie que tous les champs ont été complétés
-		if (empty($_POST["titre"]) AND empty($_POST["message"]))
-		{
-		    $erreur_inscription= "Vous devez compléter tous les champs!";
-		}
-
-		if (is_ban($ip))
-		{
-		    $erreur_ban='Vous êtes banni';
-		}
-
-		else
-		{
-
-		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, id_proprio, date_creation) VALUES(:pseudo, :titre, :message, :avatar,  :id_proprio, NOW())');
-		$req->execute(array(
-		'pseudo' => $_SESSION['login'],
-		'titre' => $_POST['titre'],
-		'message' => $_POST['message'],
-		'avatar' => "avatar.png",
-		'id_proprio' => $_SESSION['id']
-		));
-
-		$success = 'Message envoyer';
-
-		header('Refresh: 2; URL= sujets');
-
-		}
-	}
 ?>
 <form action="sujets#ancre" method="post" class="sujets">
 <label for="titre">Titre:</label><input type="text" name="titre" class="email_sujets" maxlength="200" required><br />
@@ -132,44 +97,9 @@ if (isset($_SESSION['id']))
 </form>
 <?php
 }
+// utilisateur non connécté
 elseif (empty($_SESSION['id']))
 {
-	// on teste si le visiteur a soumis le formulaire
-	if (isset($_POST['titre']) AND $_POST['message'])
-	{
-	// On vérifie que le formulaire n'a pas été soumis via une source externe
-	/*if($_SERVER["HTTP_REFERER"] !== "http://www.site.com/index.php") {
-	    echo "Le formulaire est soumis depuis une source externe !";
-	}*/
-
-		// On vérifie que tous les champs ont été complétés
-		if (empty($_POST["titre"]) AND empty($_POST["message"]))
-		{
-		$erreur_inscription= "Vous devez compléter tous les champs!";
-		}
-
-		if (is_ban($ip))
-		{
-		    $erreur_ban='Vous êtes banni';
-		}
-
-		else
-		{
-
-		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, date_creation) VALUES(:pseudo, :titre, :message, :avatar, NOW())');
-		$req->execute(array(
-		'pseudo' => $_POST['pseudo'],
-		'titre' => $_POST['titre'],
-		'message' => $_POST['message'],
-		'avatar' => "avatar.png"
-		));
-
-		$success = 'Message envoyer';
-
-		header('Refresh: 2; URL= sujets');
-
-		}
-	}
 ?>
 <form action="sujets#ancre" method="post" class="sujets">
 <label for="pseudo">Pseudo:</label><input type="text" name="pseudo" class="nom_sujets" maxlength="20" value="<?php if (isset($_POST['login'])) echo htmlentities(trim($_POST['login'])); ?>" required><br />
