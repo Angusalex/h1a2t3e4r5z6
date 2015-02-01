@@ -35,10 +35,12 @@ $nbArt = $donnees['nbArt'];
 $perPage = 10;
 $nbPage = ceil($nbArt/$perPage);
 
-if(isset($_GET['p']) && $_GET['p']>0 && $_GET['p']<=$nbPage){
+if(isset($_GET['p']) && $_GET['p']>0 && $_GET['p']<=$nbPage)
+{
 	$cPage = $_GET['p'];
 }
-else{
+else
+{
 	$cPage = 1;
 }
 
@@ -48,11 +50,10 @@ while ($donnees = $req->fetch())
 ?>
 
 <div class="news">
-
-    <div class="block-forum" style="margin-top:20px;padding:20px 10px 20px 10px;">
-    <?php
-    // On affiche le contenu du billet
-    echo '<a class="titre_sujets" href="commentaires?billet='.$donnees['id'].'">'.nl2br(htmlspecialchars($donnees['titre'])).'</a>';
+  <div class="block-forum" style="margin-top:20px;padding:20px 10px 20px 10px;">
+  <?php
+  // On affiche le contenu du billet
+  echo '<a class="titre_sujets" href="commentaires?billet='.$donnees['id'].'">'.nl2br(htmlspecialchars($donnees['titre'])).'</a>';
 	?>
 	<br />
 	<p><span class="date_com">Par <strong><?php echo '<a class="pseudo_sujets" href="profil-public?id=' . $donnees['id_proprio'] . '">' . htmlspecialchars($donnees['pseudo']) . '</a>'; ?></strong> Le <?php echo $donnees['date_creation_fr']; ?>
@@ -63,7 +64,7 @@ while ($donnees = $req->fetch())
 	$donnees = $requete->fetch();
 	?>
 	<em class="reponse_forum">Réponses: <?php echo $donnees['nb_messages']; ?></em>
-    </div>
+  </div>
 </div>
 
 <?php
@@ -86,23 +87,26 @@ for($i=1;$i<=$nbPage;$i++){
 if (isset($_SESSION['id']))
 {
 // on teste si le visiteur a soumis le formulaire
-if (isset($_POST['titre']) AND $_POST['message'])
-{
-// On vérifie que le formulaire n'a pas été soumis via une source externe
-/*if($_SERVER["HTTP_REFERER"] !== "http://www.site.com/index.php") {
-    echo "Le formulaire est soumis depuis une source externe !";
-}*/
+	if (isset($_POST['titre']) AND $_POST['message'])
+	{
+	// On vérifie que le formulaire n'a pas été soumis via une source externe
+	/*if($_SERVER["HTTP_REFERER"] !== "http://www.site.com/index.php") {
+	    echo "Le formulaire est soumis depuis une source externe !";
+	}*/
 
-// On vérifie que tous les champs ont été complétés
-if (empty($_POST["titre"]) AND empty($_POST["message"])) {
-    $erreur_inscription= "Vous devez compléter tous les champs!";
-}
+		// On vérifie que tous les champs ont été complétés
+		if (empty($_POST["titre"]) AND empty($_POST["message"]))
+		{
+		    $erreur_inscription= "Vous devez compléter tous les champs!";
+		}
 
-if (is_ban($ip)) {
-    $erreur_ban='Vous êtes banni';
-	 }
+		if (is_ban($ip))
+		{
+		    $erreur_ban='Vous êtes banni';
+		}
 
-	else {
+		else
+		{
 
 		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, id_proprio, date_creation) VALUES(:pseudo, :titre, :message, :avatar,  :id_proprio, NOW())');
 		$req->execute(array(
@@ -130,24 +134,27 @@ if (is_ban($ip)) {
 }
 elseif (empty($_SESSION['id']))
 {
-// on teste si le visiteur a soumis le formulaire
-if (isset($_POST['titre']) AND $_POST['message'])
-{
-// On vérifie que le formulaire n'a pas été soumis via une source externe
-/*if($_SERVER["HTTP_REFERER"] !== "http://www.site.com/index.php") {
-    echo "Le formulaire est soumis depuis une source externe !";
-}*/
+	// on teste si le visiteur a soumis le formulaire
+	if (isset($_POST['titre']) AND $_POST['message'])
+	{
+	// On vérifie que le formulaire n'a pas été soumis via une source externe
+	/*if($_SERVER["HTTP_REFERER"] !== "http://www.site.com/index.php") {
+	    echo "Le formulaire est soumis depuis une source externe !";
+	}*/
 
-// On vérifie que tous les champs ont été complétés
-if (empty($_POST["titre"]) AND empty($_POST["message"])) {
-    $erreur_inscription= "Vous devez compléter tous les champs!";
-}
+		// On vérifie que tous les champs ont été complétés
+		if (empty($_POST["titre"]) AND empty($_POST["message"]))
+		{
+		$erreur_inscription= "Vous devez compléter tous les champs!";
+		}
 
-if (is_ban($ip)) {
-    $erreur_ban='Vous êtes banni';
-	 }
+		if (is_ban($ip))
+		{
+		    $erreur_ban='Vous êtes banni';
+		}
 
-	else {
+		else
+		{
 
 		$req = $bdd->prepare('INSERT INTO billets(pseudo, titre, contenu, avatar, date_creation) VALUES(:pseudo, :titre, :message, :avatar, NOW())');
 		$req->execute(array(
