@@ -2,6 +2,8 @@
   width:600px;
   margin-left:20px;
   margin-top:20px;
+  font-family:'Franklin Gothic Demi';
+
 }
 
 .info-utilisateur-public p,h1{
@@ -42,10 +44,41 @@
   margin-top:100px;
 }
 
+.follow-du-profil{
+  border:2px solid rgba(228,35,35, 0.5);
+  margin-left:15px;
+  width:500px;
+  display:inline-block;
+  border-radius:5px;
+  padding-left:5px;
+  padding-right:5px;
+}
+
 .follow-du-profil img{
   width:50px;
 
 }
+
+.follow-du-profil h2{
+  font-family : 'LemonMilk';
+  text-align:center;
+}
+
+.followers-du-profil{
+  display:inline-block;
+  border:2px solid rgba(228,35,35, 0.5);
+  border-radius:5px;
+  width:500px;
+  padding-left:5px;
+  padding-right:5px;
+
+}
+
+.followers-du-profil h2{
+  font-family : 'LemonMilk';
+  text-align:center;
+}
+
 
 .followers-du-profil img{
   width:50px;
